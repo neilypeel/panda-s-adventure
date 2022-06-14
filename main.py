@@ -43,7 +43,7 @@ def start():
     panda_answer = input("yes or no, or help to read game instructions")
     if panda_answer == "yes":
         print("ok! lets do this")
-        print("You have just woke up from a beautiful dream and a long sleep..")
+        print("You have just woke up from a beautiful dream and a long sleep..\n")
         living_room()
     if panda_answer == "help":
         instructions()
@@ -74,19 +74,23 @@ def living_room():
     global inv, location, treats
     location = "living room"
     if "pills" not in inv:
-        print("You are in the living room in your apartment. A small apartment in Berlin.")
+        print("You are in the living room in your apartment. A small apartment in Berlin. You see the door into the hallway to the left. \n\nThe windows are ajar and the birds are singing. You hear the gentle humming of a bee. \n\nThe light outside is almost blinding and inescapable. You feel as though your heart is full and you struggle to breath.\n\n")
         print(
-            "Outside of your window, the sun beats down.\n")
+            "You could definitley use your medication.\n")
     else:
-        print(
-            "The light outside is almost blinding and inescapable. You feel as though your heart is full and you struggle to breath.")
-        print(
-            "You could definitley use your medication.")
+        print("The living room looks calm and restful. You sit down on the yoga matt. \nThose pills really did the trick.\n\nYou see the hallway door to your left, Outside through the open window, the sun beats down. ")
+        if "water" in inv:
+            print("You see a glass of water on the floor.\n")
+            action = input("")
+            if action == "drink water":
+                print("You pee on the floor after a long slurp of water. You already drank water Panda!")
+                exit()
+            else:
+                living_room()
 
     action = input("what do you want to do?")
 
     if action == "left":
-        print("You picked the hallway")
         hallway()
     if action == "take treats":
         treats_adder(location)
@@ -119,6 +123,8 @@ def hallway():
     action = input("what do you want to do?")
 
     if "right" in action:
+        living_room()
+    if "left" in action:
         kitchen()
     elif "forward" in action:
         print("the main apartment door appears to be closed")
@@ -154,7 +160,7 @@ def kitchen():
         "You are now in the kitchen. a sunny bright room with a water and food bowl on the left, and sara straight ahead, sat down at the table by the window.")
     print("whats your next move?")
     action = input("... ")
-    if action == "hallway":
+    if action == "right":
         hallway()
 
     if action == "forward":
@@ -207,13 +213,11 @@ def kitchen():
 
             elif bowl_choice == "take water":
                 items.remove("water")
-                bowls.append("water")
+                inv.append("water")
                 bowls_2 = bowls[0:4]
-                print("you now have the following items left..")
                 print(bowls_2)
                 print("\tYou drink the water thats been left for you.")
-                print("\tWoohoo! I just peed on the floor.")
-                game_over("Sara goes mad and locks you in the living room")
+
 
             elif bowl_choice == "take food":
                 items.remove("food")
@@ -662,7 +666,7 @@ def ber():
 def search(location):
 
     search_answers = {
-        "living room": "Your living room is spacious, on the side next to the couch you can see what looks like a bag of treats thats nearly finished but quite a few left!. You . Your toy box is in the floor by neil's records.",
+        "living room": "Your living room is spacious, you see the couch and bedding and a yoga matt on the floor. \nTo the side next to the couch you can see what looks like a bag of treats thats nearly finished but quite a few left. \nYour toy box is on the floor by neil's records.",
         "hallway": "Sara looks at you briefly before returning her gaze skyward. You look up at her as she steps into the kitchen and you are dazzled by the sunlight blazing through the window. You search in neil's bag laid on the floor and see a treat inside..",
         "kitchen": "The kitchen is silent, except for sara making soft humming and coughing sounds. You run your nose along the floor, nothing much about. Without noticing while pulling something from a kitchen shelf, Sara drops a packet of treats on the floor.",
         "downstairs": "A treat lies near the bottom of the stairs. Peter looks on at you, awaiting your next move",
@@ -704,16 +708,16 @@ def bark(location):
 
         print("You approach sara, who smiles at you. She opens her mouth to speak, and the voice that you hear is high pitched and excited.")
 
-        print("'Hello panda, how are you enjoying your morning? Have we given you your heart medicine yet?? The question takes you aback. You respond with a grunt. You could really do with a wee.")
+        print("'Hello panda, how are you enjoying your morning? Have we given you your heart medicine yet?? \nThe question takes you aback. You respond with a grunt. You could really do with a wee.")
 
-        print("'Beautiful weather today isnt it?? As she speaks, the glow grows brighter. Its as if the sun was on the other side of the planet, shining so brightly its light penetrated the very ground. Shadows fade and from somewhere you feel a deep, ominous hum. Your vision turns black and suddenly you find yourself standing on a dark, gravely shore. You watch as a single, giant hand breaches the surface of the water. The flesh of the beast is grotesque, scaly, as it reaches out to you...")
+        print("'Beautiful weather today isnt it?? As she speaks, the glow grows brighter. You feel your little heart thumping hard. \nYour chest tightens and suddenly you find yourself struggling to breath and an intense but choking sensation occurs as you cough and splutter...")
 
-        print("Just as suddenly you are again standing in front of Sara, her smile suggesting she knows where you were and what you saw.")
+        print("Just as suddenly you are again looking up at Sara, her smile suggesting she knows what just happened and how you felt.")
 
-        print("You walk away in a slight daze. Not until a little later do you realize youve been walking in a circle. You find yourself once again in the hallway as Sara saunters into the kitchen")
+        print("You shake your head and ears and come back to normal as Sara saunters into the kitchen")
         hallway()
-    elif location == "street":
-        print("You wag your tail at Jonas to get his attention. He looks down after a drag of his cigarette. \n'Oh! Sorry, I didn't see you there Panda!'")
+    elif location == "neil":
+        print("You bark and wag your tail and crouch down as if ready to pounce. \nNeil can see you are happy to see him and want to play..  \n")
 
     elif location == "kitchen":
         print("""
@@ -721,8 +725,8 @@ def bark(location):
 
         "Oooh I nearly forgot," she continues coughing as she bends down. "Here it is!" She has your medication.
         """)
-        if "Pills" in inv:
-            print("You feel weird about taking the pills.")
+        if "pills" in inv:
+            print("you grunt and turn your nose up as if to tell Sara that you have had enough pills for now, you are breathing just fine. \n'Ah yeah' Sara says, 'We already gave you your morning pills!")
         else:
 
             inv.append("pills")
